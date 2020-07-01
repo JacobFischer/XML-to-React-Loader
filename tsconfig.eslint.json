@@ -1,0 +1,17 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "lib": ["dom"], // To make typescript happy when linting browsers
+    },
+    "include": [
+        ".eslintrc.js",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/.eslintrc.js",
+        "test/**/*.ts",
+        "test/**/*.tsx",
+        "test/**/*.js",
+        "test/**/.eslintrc.js",
+    ]
+}
