@@ -1,5 +1,3 @@
-import { transfomer } from "./transformer";
+import { test } from "./test";
 
-transfomer().then((val: any) => {
-    console.log("val", val);
-});
+void test();
