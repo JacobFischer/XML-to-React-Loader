@@ -59,8 +59,11 @@ const reactify = (module: boolean) =>
     };
 
 /**
- * @param xml
- * @param module
+ * The good code.
+ *
+ * @param xml - The xml contents to transform.
+ * @param module - An optional module to use to import xml components from.
+ * @returns A promise that resolves to the transformed string.
  */
 export async function transformer(
     xml: string,
