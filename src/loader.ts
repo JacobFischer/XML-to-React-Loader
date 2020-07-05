@@ -6,7 +6,7 @@ import { JSONSchema7 } from "json-schema";
 const schema: JSONSchema7 = {
     type: "object",
     properties: {
-        test: {
+        name: {
             type: "string",
         },
     },
@@ -23,9 +23,12 @@ export default function SvgToReactLoader(
     this: webpack.loader.LoaderContext,
     source: string,
 ): string {
-    const options = getOptions(this);
+    const rawOptions = getOptions(this);
 
-    validateOptions(schema, options, { name: "Example Loader" });
+    validateOptions(schema, rawOptions, { name: "Example Loader" });
+    const options = (rawOptions as unknown) as { name: string };
+
+    source = source.replace(/\[name\]/g, options.name);
 
     // Apply some transformations to the source...
 

@@ -1,18 +1,14 @@
 {
     "compilerOptions": {
-        "target": "ES3",
+        "target": "ES5",
         "lib": ["esnext"],
         "moduleResolution": "node",
         "jsx": "react",
         "outDir": "dist",
 
         "strict": true,
-        // "sourceMap": true,
         "esModuleInterop": true,
         "inlineSourceMap": true,
         "allowJs": true,
     },
-    "include": [
-        "./src/",
-    ],
 }
