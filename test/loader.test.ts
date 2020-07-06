@@ -2,7 +2,7 @@ import compile from "./webpack-compile";
 
 describe("Webpack loader", () => {
     test("Inserts name and outputs JavaScript", async () => {
-        const stats = await compile("svgs/paint.svg");
+        const stats = await compile("svgs/circle.svg");
 
         const output = stats.toJson();
         const { modules } = output;

@@ -40,7 +40,7 @@ function webpackCompile(
         module: {
             rules: [
                 {
-                    test: /\.*$/,
+                    test: /\.svg$/,
                     use: {
                         loader: path.resolve(__dirname, "../src/index.ts"),
                         options,
