@@ -7,7 +7,7 @@ process.env.ESLINT_PATH_TSCONFIG = resolve("./tsconfig.eslint.json");
 
 /** @type {import("eslint").Linter.Config} */
 const baseEslintConfig = {
-    extends: ["jacobfischer"],
+    extends: ["jacobfischer/node"],
     rules: {
         // "@typescript-eslint/explicit-module-boundary-types": "off",
     },

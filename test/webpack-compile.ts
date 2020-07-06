@@ -1,6 +1,7 @@
 import path from "path";
 import webpack from "webpack";
 import { createFsFromVolume, Volume, IFs } from "memfs";
+import { Options } from "../src/options";
 
 /**
  * Creates the memfs file system and injects path.join into it for webpack.
@@ -23,9 +24,13 @@ function createOutputFileSystem(): IFs & { join: typeof path.join } {
  * Creates a mock webpack compiler in memory for testing.
  *
  * @param fixture - The entry file path,.
+ * @param options - The options, if any.
  * @returns A promise to the webpack stats compiled.
  */
-function webpackCompile(fixture: string): Promise<webpack.Stats> {
+function webpackCompile(
+    fixture: string,
+    options?: Options,
+): Promise<webpack.Stats> {
     const compiler = webpack({
         context: __dirname,
         entry: `./${fixture}`,
@@ -37,10 +42,8 @@ function webpackCompile(fixture: string): Promise<webpack.Stats> {
                 {
                     test: /\.*$/,
                     use: {
-                        loader: path.resolve(__dirname, "../src/loader.ts"),
-                        options: {
-                            module: "Alice",
-                        },
+                        loader: path.resolve(__dirname, "../src/index.ts"),
+                        options,
                     },
                 },
             ],

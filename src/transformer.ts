@@ -1,4 +1,7 @@
 import { parseStringPromise } from "xml2js";
+import { stringifyRequest } from "loader-utils";
+import { loader } from "webpack";
+import { defaultOptions } from "./options";
 
 const tagNameKey = "#name";
 const innerTextKey = "$innertext";
@@ -61,13 +64,15 @@ const reactify = (module: boolean) =>
 /**
  * The good code.
  *
+ * @param loader - The context webpack calls this with.
  * @param xml - The xml contents to transform.
- * @param module - An optional module to use to import xml components from.
+ * @param options - The parsed options to this loader.
  * @returns A promise that resolves to the transformed string.
  */
-export async function transformer(
+export async function transform(
+    loader: loader.LoaderContext,
     xml: string,
-    module?: string,
+    options = defaultOptions,
 ): Promise<string> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const result: Result | undefined = await parseStringPromise(xml, {
@@ -85,6 +90,11 @@ export async function transformer(
     if (!result) {
         throw new Error("Could not parse xml!");
     }
+
+    const reactPath = stringifyRequest(loader, require.resolve("react"));
+    const modulePath = options.module
+        ? stringifyRequest(loader, options.module)
+        : "";
 
     // we need to try to extact the height and width
     let width = "";
@@ -113,11 +123,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireDefault(require(${reactPath}));
 ${
-    module
+    options.module
         ? `
-var mod = _interopRequireDefault(require("${module}"));
+var mod = _interopRequireDefault(require("${modulePath}"));
 
 function component(str) {
     if (mod[str]) {

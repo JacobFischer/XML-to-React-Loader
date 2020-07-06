@@ -1,12 +1,12 @@
-describe("sanity tests", () => {
-    it("knows true is true", () => {
+describe("Sanity Tests", () => {
+    it("Knows true is true", () => {
         expect(typeof true).toEqual("boolean");
         expect(true).toEqual(true);
         expect(true).toStrictEqual(true);
         expect(true).toBeTruthy();
     });
 
-    it("knows true is not false", () => {
+    it("Knows true is not false", () => {
         expect(true).toEqual(!false);
     });
 
