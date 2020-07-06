@@ -1,16 +1,6 @@
 import { getOptions } from "loader-utils";
-import validateOptions from "schema-utils";
 import * as webpack from "webpack";
-import { JSONSchema7 } from "json-schema";
-
-const schema: JSONSchema7 = {
-    type: "object",
-    properties: {
-        name: {
-            type: "string",
-        },
-    },
-};
+import { validate } from "./options";
 
 /**
  * Hello?
@@ -23,12 +13,9 @@ export default function SvgToReactLoader(
     this: webpack.loader.LoaderContext,
     source: string,
 ): string {
-    const rawOptions = getOptions(this);
+    const options = validate(getOptions(this));
 
-    validateOptions(schema, rawOptions, { name: "Example Loader" });
-    const options = (rawOptions as unknown) as { name: string };
-
-    source = source.replace(/\[name\]/g, options.name);
+    source = source.replace(/\[name\]/g, options.module || "unknown");
 
     // Apply some transformations to the source...
 

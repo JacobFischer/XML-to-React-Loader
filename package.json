@@ -7,8 +7,8 @@
   "author": "Jacob Fischer <jacob.t.fischer@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "jsonschema-definer": "1.2.2",
     "loader-utils": "2.0.0",
-    "schema-utils": "2.7.0",
     "xml2js": "0.4.23"
   },
   "devDependencies": {

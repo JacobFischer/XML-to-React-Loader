@@ -39,7 +39,7 @@ function webpackCompile(fixture: string): Promise<webpack.Stats> {
                     use: {
                         loader: path.resolve(__dirname, "../src/loader.ts"),
                         options: {
-                            name: "Alice",
+                            module: "Alice",
                         },
                     },
                 },
