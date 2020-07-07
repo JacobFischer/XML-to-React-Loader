@@ -1,5 +1,5 @@
 {
-  "name": "svg-to-react-loader",
+  "name": "xml-to-react-loader",
   "version": "0.0.1",
   "description": "Webpack loader designed to parse an svg file into a an abstract React component.",
   "main": "dist/index.js",
@@ -10,6 +10,9 @@
     "jsonschema-definer": "1.2.2",
     "loader-utils": "2.0.0",
     "xml2js": "0.4.23"
+  },
+  "peerDependencies": {
+    "react": "*"
   },
   "devDependencies": {
     "@react-pdf/renderer": "2.0.0-beta.6",
