@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Webpack loader Accepts a module option 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+    value: true
+});
+exports.default = void 0;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
+
+var mod = _interopRequireDefault(require(\\"@react-pdf/renderer\\"));
+
+function component(str) {
+    if (mod[str]) {
+        return mod[str];
+    }
+
+    if (mod.default && mod.default[str]) {
+        return mod.default[str];
+    }
+
+    return function NothingForTag() {
+        return null;
+    }
+}
+
+
+var SvgAsReactSvg = function SvgAsReactSvg() {
+    return (
+        /*#__PURE__*/_react.default.createElement(component(\\"Svg\\"), { \\"height\\": \\"100\\", \\"width\\": \\"100\\" },
+            /*#__PURE__*/_react.default.createElement(component(\\"Circle\\"), { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
+        )
+    );
+}
+
+var width = \\"100\\";
+exports.width = width;
+
+var height = \\"100\\";
+exports.height = height;
+
+var _default = SvgAsReactSvg;
+exports.default = _default;
+"
+`;
+
+exports[`Webpack loader Transforms inner text within SVGs 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+    value: true
+});
+exports.default = void 0;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
+
+
+var SvgAsReactSvg = function SvgAsReactSvg() {
+    return (
+        /*#__PURE__*/_react.default.createElement(\\"svg\\", { \\"viewBox\\": \\"0 0 240 80\\", \\"xmlns\\": \\"http://www.w3.org/2000/svg\\" },
+            /*#__PURE__*/_react.default.createElement(\\"style\\", null,
+                \\"\\\\n    .small { font: italic 13px sans-serif; }\\\\n    .heavy { font: bold 30px sans-serif; }\\\\n\\\\n    /* Note that the color of the text is set with the    *\\\\n     * fill property, the color property is for HTML only */\\\\n    .Rrrrr { font: italic 40px serif; fill: red; }\\\\n  \\",
+            ),
+            /*#__PURE__*/_react.default.createElement(\\"text\\", { \\"class\\": \\"small\\", \\"x\\": \\"20\\", \\"y\\": \\"35\\" },
+                \\"My\\",
+            ),
+            /*#__PURE__*/_react.default.createElement(\\"text\\", { \\"class\\": \\"heavy\\", \\"x\\": \\"40\\", \\"y\\": \\"35\\" },
+                \\"cat\\",
+            ),
+            /*#__PURE__*/_react.default.createElement(\\"text\\", { \\"class\\": \\"small\\", \\"x\\": \\"55\\", \\"y\\": \\"55\\" },
+                \\"is\\",
+            ),
+            /*#__PURE__*/_react.default.createElement(\\"text\\", { \\"class\\": \\"Rrrrr\\", \\"x\\": \\"65\\", \\"y\\": \\"55\\" },
+                \\"Grumpy!\\",
+            ),
+        )
+    );
+}
+
+var width = \\"240\\";
+exports.width = width;
+
+var height = \\"80\\";
+exports.height = height;
+
+var _default = SvgAsReactSvg;
+exports.default = _default;
+"
+`;
+
+exports[`Webpack loader Transforms minimal SVGs 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+    value: true
+});
+exports.default = void 0;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
+
+
+var SvgAsReactSvg = function SvgAsReactSvg() {
+    return (
+        /*#__PURE__*/_react.default.createElement(\\"svg\\", null)
+    );
+}
+
+var width = \\"\\";
+exports.width = width;
+
+var height = \\"\\";
+exports.height = height;
+
+var _default = SvgAsReactSvg;
+exports.default = _default;
+"
+`;
+
+exports[`Webpack loader Works as a webpack loader 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+    value: true
+});
+exports.default = void 0;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
+
+
+var SvgAsReactSvg = function SvgAsReactSvg() {
+    return (
+        /*#__PURE__*/_react.default.createElement(\\"svg\\", { \\"height\\": \\"100\\", \\"width\\": \\"100\\" },
+            /*#__PURE__*/_react.default.createElement(\\"circle\\", { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
+        )
+    );
+}
+
+var width = \\"100\\";
+exports.width = width;
+
+var height = \\"100\\";
+exports.height = height;
+
+var _default = SvgAsReactSvg;
+exports.default = _default;
+"
+`;

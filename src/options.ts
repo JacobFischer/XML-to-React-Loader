@@ -22,10 +22,15 @@ export function validate(obj?: Record<string, unknown>): Options {
     }
     const [valid, errors] = OptionsSchema.validate(obj);
 
-    if (!valid) {
+    if (!valid && errors) {
+        /* istanbul ignore else*/
         const errorMessage = errors
-            ? errors.map((err) => err.message || "Unknown").join(", ")
-            : "Unknown";
+            .map(
+                (err) =>
+                    /* istanbul ignore next */
+                    `options${err.dataPath} - ${err.message || "Invalid"}`,
+            )
+            .join(", ");
         throw new Error(`Invalid options: ${errorMessage}`);
     }
 

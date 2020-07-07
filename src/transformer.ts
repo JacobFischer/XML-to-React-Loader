@@ -1,7 +1,8 @@
 import { parseStringPromise } from "xml2js";
 import { stringifyRequest } from "loader-utils";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { loader } from "webpack";
-import { defaultOptions } from "./options";
+import { Options } from "./options";
 
 const tagNameKey = "#name";
 const innerTextKey = "$innertext";
@@ -27,11 +28,12 @@ const cleanTagName = (tagName: string) =>
     tagName[0].toUpperCase() + tagName.slice(1);
 
 const reactify = (module: boolean) =>
-    function recurse(node: SvgNode, tabs = 0): string {
+    function recurse(node: SvgNode, tabs: number): string {
         const indent = "    ".repeat(tabs);
         const tag = node[tagNameKey];
 
         if (tag === textOnlyNodeName) {
+            /* istanbul ignore next */ // the || "" is to appease TS
             return `${indent}"${stringify(node[innerTextKey] || "")}"`;
         }
 
@@ -72,10 +74,10 @@ const reactify = (module: boolean) =>
 export async function transform(
     loader: loader.LoaderContext,
     xml: string,
-    options = defaultOptions,
+    options: Options,
 ): Promise<string> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const result: Result | undefined = await parseStringPromise(xml, {
+    const result = (await parseStringPromise(xml, {
         attrkey: attributesKey,
         explicitArray: true,
         explicitChildren: true,
@@ -86,10 +88,7 @@ export async function transform(
         preserveChildrenOrder: true,
         // explicitRoot: true,
         // */
-    });
-    if (!result) {
-        throw new Error("Could not parse xml!");
-    }
+    })) as Result; // should never be undefined, type is wrong. Instead promise rejects on errors
 
     const reactPath = stringifyRequest(loader, require.resolve("react"));
     const modulePath = options.module
@@ -109,10 +108,10 @@ export async function transform(
             const split = viewBox.split(" ");
             width = width || split[2];
             height = height || split[3];
-        }
+        } // the || "" is to appease TS
 
-        width = width || "";
-        height = height || "";
+        /* istanbul ignore next */ width = width || ""; // the || "" is to appease TS
+        /* istanbul ignore next */ height = height || "";
     }
 
     return `"use strict";
@@ -127,7 +126,7 @@ var _react = _interopRequireDefault(require(${reactPath}));
 ${
     options.module
         ? `
-var mod = _interopRequireDefault(require("${modulePath}"));
+var mod = _interopRequireDefault(require(${modulePath}));
 
 function component(str) {
     if (mod[str]) {
@@ -148,7 +147,7 @@ function component(str) {
 
 var SvgAsReactSvg = function SvgAsReactSvg() {
     return (
-${reactify(Boolean(module))(result.svg, 2)}
+${reactify(Boolean(options.module))(result.svg, 2)}
     );
 }
 

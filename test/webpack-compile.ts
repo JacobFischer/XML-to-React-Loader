@@ -1,5 +1,6 @@
 import path from "path";
 import webpack from "webpack";
+import externals from "webpack-node-externals";
 import { createFsFromVolume, Volume, IFs } from "memfs";
 import { Options } from "../src/options";
 
@@ -27,13 +28,14 @@ function createOutputFileSystem(): IFs & { join: typeof path.join } {
  * @param options - The options, if any.
  * @returns A promise to the webpack stats compiled.
  */
-function webpackCompile(
+export function compile(
     fixture: string,
     options?: Options,
 ): Promise<webpack.Stats> {
     const compiler = webpack({
         context: __dirname,
         entry: `./${fixture}`,
+        externals: [externals()],
         output: {
             path: path.resolve(__dirname),
         },
@@ -68,4 +70,26 @@ function webpackCompile(
     });
 }
 
-export default webpackCompile;
+/**
+ * Shortcut to directly get the compiled JS.
+ *
+ * @param fixture - The entry file path,.
+ * @param options - The options, if any.
+ * @returns A promise to the webpack stats compiled.
+ */
+export async function toJsFile(
+    fixture: string,
+    options?: Options,
+): Promise<string> {
+    const stats = await compile(fixture, options);
+    const output = stats.toJson();
+    const js =
+        output &&
+        output.modules &&
+        output.modules[0] &&
+        output.modules[0].source;
+
+    return js || "";
+}
+
+export default compile;
