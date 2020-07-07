@@ -2,7 +2,7 @@ import path from "path";
 import webpack from "webpack";
 import externals from "webpack-node-externals";
 import { createFsFromVolume, Volume, IFs } from "memfs";
-import { Options } from "../src/options";
+import { Options } from "../../src/options";
 
 /**
  * Creates the memfs file system and injects path.join into it for webpack.
@@ -44,7 +44,7 @@ export function compile(
                 {
                     test: /\.(svg|xml)$/,
                     use: {
-                        loader: path.resolve(__dirname, "../src/index.ts"),
+                        loader: path.resolve(__dirname, "../../src/index.ts"),
                         options,
                     },
                 },

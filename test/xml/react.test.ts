@@ -2,7 +2,7 @@ import safeEval from "eval";
 import React from "react";
 import renderer from "react-test-renderer";
 import { toJsFile } from "./webpack-compile";
-import { Options } from "../src/options";
+import { Options } from "../../src/options";
 
 /**
  * Attempts to run the webpack loader and eval the resulting react component.

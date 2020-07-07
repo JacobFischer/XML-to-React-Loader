@@ -58,16 +58,7 @@ describe("Webpack loader", () => {
     test(
         "Rejects on invalid SVG files",
         async () => {
-            await expect(toJsFile("svgs/test.txt")).rejects.toBeTruthy();
-        },
-        LONG_TIMEOUT,
-    );
-
-    test(
-        "Transforms inner text within SVGs",
-        async () => {
-            const source = await toJsFile("svgs/text.svg");
-            expect(source).toMatchSnapshot();
+            await expect(toJsFile("invalid.xml")).rejects.toBeTruthy();
         },
         LONG_TIMEOUT,
     );
@@ -75,7 +66,16 @@ describe("Webpack loader", () => {
     test(
         "Transforms minimal SVGs",
         async () => {
-            const source = await toJsFile("svgs/empty.svg");
+            const source = await toJsFile("empty.xml");
+            expect(source).toMatchSnapshot();
+        },
+        LONG_TIMEOUT,
+    );
+
+    test(
+        "Transforms large complex files",
+        async () => {
+            const source = await toJsFile("gallardo.svg");
             expect(source).toMatchSnapshot();
         },
         LONG_TIMEOUT,
