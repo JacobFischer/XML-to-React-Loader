@@ -2,7 +2,7 @@ import { defaultOptions, validate } from "../src/options";
 
 describe("Options", () => {
     test("Accepts valid options", () => {
-        const call = jest.fn(() => validate({ module: "some-module" }));
+        const call = jest.fn(() => validate({ reactPath: "react" }));
         expect(call).not.toThrow();
         expect(call).toBeCalled();
     });
@@ -14,7 +14,7 @@ describe("Options", () => {
     });
 
     test("Returns the same object without mutating", () => {
-        const originalOptions = { module: "another-module" };
+        const originalOptions = { reactPath: "react-v1337" };
         const clonedOptions = { ...originalOptions };
         const result = validate(originalOptions);
         expect(result).toEqual(clonedOptions);
@@ -27,7 +27,7 @@ describe("Options", () => {
     });
 
     test("Rejects invalid types on valid options", () => {
-        const call = jest.fn(() => validate({ module: 1337 }));
+        const call = jest.fn(() => validate({ reactPath: 1337 }));
         expect(call).toThrow();
     });
 

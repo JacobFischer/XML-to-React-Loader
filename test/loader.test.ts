@@ -23,9 +23,7 @@ describe("Webpack loader", () => {
     test(
         "The output is valid JavaScript",
         async () => {
-            const source = await toJsFile("note.xml", {
-                module: "@react-pdf/renderer",
-            });
+            const source = await toJsFile("note.xml");
             const result = safeEval(source, undefined, undefined, true);
             expect(typeof result).toEqual("object");
             expect(result).not.toStrictEqual(null);
@@ -50,7 +48,7 @@ describe("Webpack loader", () => {
         "Accepts a module option",
         async () => {
             const source = await toJsFile("circle.svg", {
-                module: "@react-pdf/renderer",
+                reactPath: require.resolve("react"),
             });
             expect(source).toMatchSnapshot();
         },

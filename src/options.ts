@@ -1,7 +1,11 @@
 import S from "jsonschema-definer";
 
 const OptionsSchema = S.shape({
-    module: S.string().optional(),
+    reactPath: S.description(
+        "An optional override to the path for react. Otherwise webpack will resolve the react library's location itself",
+    )
+        .string()
+        .optional(),
 });
 
 /** The shape of the options this loader expects. */

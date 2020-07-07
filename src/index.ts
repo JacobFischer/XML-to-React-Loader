@@ -10,7 +10,7 @@ import { transform } from "./transformer";
  * @param source - The source code being imported.
  * @returns Transformed source code?
  */
-export default async function SvgToReactLoader(
+export default async function XmlToReactLoader(
     this: webpack.loader.LoaderContext,
     source: string,
 ): Promise<string> {

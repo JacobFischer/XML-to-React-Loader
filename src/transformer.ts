@@ -10,64 +10,65 @@ const textOnlyNodeName = "__text__";
 const childrenKey = "$children";
 const attributesKey = "$props";
 
-type SvgNode = {
+type XmlNode = {
     [tagNameKey]: string;
     [attributesKey]?: Record<string, string>;
-    [childrenKey]?: SvgNode[];
+    [childrenKey]?: XmlNode[];
     [innerTextKey]?: string;
 };
 
 type Result = {
-    [key: string]: SvgNode;
+    [key: string]: XmlNode;
 };
 
 const stringify = (str: string) =>
     str.replace(/\\/g, "\\\\").replace(/\r/g, "").replace(/\n/g, "\\n");
 
-const cleanTagName = (tagName: string) =>
-    tagName[0].toUpperCase() + tagName.slice(1);
+/**
+ * Transforms an XML node into a react-style JS syntax string.
+ *
+ * @param node - The node to transform.
+ * @param tabs - How many tabs to indent.
+ * @param isRoot - If this is the root node to spread props to.
+ * @returns A string that is valid JavaScript transformed.
+ */
+function reactify(node: XmlNode, tabs: number, isRoot: boolean): string {
+    const indent = "    ".repeat(tabs);
+    const tag = node[tagNameKey];
 
-const reactify = (module: boolean) =>
-    function recurse(node: SvgNode, tabs: number, isRoot: boolean): string {
-        const indent = "    ".repeat(tabs);
-        const tag = node[tagNameKey];
+    if (tag === textOnlyNodeName) {
+        /* istanbul ignore next */ // the || "" is to appease TS
+        return `${indent}"${stringify(node[innerTextKey] || "")}"`;
+    }
 
-        if (tag === textOnlyNodeName) {
-            /* istanbul ignore next */ // the || "" is to appease TS
-            return `${indent}"${stringify(node[innerTextKey] || "")}"`;
+    let attributes = isRoot ? "props" : "null";
+    const rawAttributes = node[attributesKey];
+    if (rawAttributes) {
+        attributes = `{ ${[...Object.entries(rawAttributes)]
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([key, value]) => `"${key}": "${stringify(value)}"`)
+            .join(", ")} }`;
+
+        if (isRoot) {
+            attributes = `_extends(${attributes}, props)`;
         }
+    }
+    let children: string[] | undefined;
+    const rawChildren = node[childrenKey];
+    if (Array.isArray(rawChildren)) {
+        children = rawChildren.map((child) =>
+            reactify(child, tabs + 1, false),
+        );
+    }
 
-        let attributes = isRoot ? "props" : "null";
-        const rawAttributes = node[attributesKey];
-        if (rawAttributes) {
-            attributes = `{ ${[...Object.entries(rawAttributes)]
-                .sort(([a], [b]) => a.localeCompare(b))
-                .map(([key, value]) => `"${key}": "${stringify(value)}"`)
-                .join(", ")} }`;
+    const start = `${indent}/*#__PURE__*/_react.default.createElement(getComponent("${tag}"), ${attributes}`;
+    const middle = children
+        ? `,\n${children.map((child) => child + ",\n").join("")}${indent}`
+        : "";
+    const end = ")";
 
-            if (isRoot) {
-                attributes = `_extends(${attributes}, props)`;
-            }
-        }
-        let children: string[] | undefined;
-        const rawChildren = node[childrenKey];
-        if (Array.isArray(rawChildren)) {
-            children = rawChildren.map((child) =>
-                recurse(child, tabs + 1, false),
-            );
-        }
-
-        const tagName = module
-            ? `component("${cleanTagName(tag)}")`
-            : `"${tag}"`;
-        const start = `${indent}/*#__PURE__*/_react.default.createElement(${tagName}, ${attributes}`;
-        const middle = children
-            ? `,\n${children.map((child) => child + ",\n").join("")}${indent}`
-            : "";
-        const end = ")";
-
-        return start + middle + end;
-    };
+    return start + middle + end;
+}
 
 /**
  * The good code.
@@ -108,10 +109,10 @@ export async function transform(
 
     const root = result[rootKeys[0]];
 
-    const reactPath = stringifyRequest(loader, require.resolve("react"));
-    const modulePath = options.module
-        ? stringifyRequest(loader, options.module)
-        : "";
+    const reactPath = stringifyRequest(
+        loader,
+        options.reactPath || require.resolve("react"),
+    );
 
     return `"use strict";
 
@@ -122,26 +123,8 @@ exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _react = _interopRequireDefault(require(${reactPath}));
-${
-    options.module
-        ? `
-var mod = _interopRequireDefault(require(${modulePath}));
-
-function component(str) {
-    if (mod[str]) {
-        return mod[str];
-    }
-
-    if (mod.default && mod.default[str]) {
-        return mod.default[str];
-    }
-
-    return function NothingForTag() {
-        return null;
-    }
-}
-`
-        : ""
+function _getComponentDefault(str) {
+    return str;
 }
 ${
     root[attributesKey] // if there are attributes, we need to spread them with the props
@@ -150,8 +133,9 @@ ${
 }
 
 var XmlAsReactComponent = function XmlAsReactComponent(props) {
+    var getComponent = props.getComponent || _getComponentDefault;
     return (
-${reactify(Boolean(options.module))(root, 2, true)}
+${reactify(root, 2, true)}
     );
 }
 
