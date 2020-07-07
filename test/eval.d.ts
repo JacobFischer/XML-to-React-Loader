@@ -6,7 +6,7 @@ declare module "eval" {
         /** Optional dummy name to be given (used in stacktraces). */
         filename?: string,
         /** Scope properties are provided as variables to the content. */
-        scope?: Record<string, any>,
+        scope?: Record<string, unknown>,
         /** (Boolean): allow/disallow global variables (and require) to be supplied to the content (default=false). */
         includeGlobals?: boolean,
     ) => unknown;

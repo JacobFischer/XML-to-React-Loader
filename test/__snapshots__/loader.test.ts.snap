@@ -27,10 +27,11 @@ function component(str) {
     }
 }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var XmlAsReactComponent = function XmlAsReactComponent() {
+var XmlAsReactComponent = function XmlAsReactComponent(props) {
     return (
-        /*#__PURE__*/_react.default.createElement(component(\\"Svg\\"), { \\"height\\": \\"100\\", \\"width\\": \\"100\\" },
+        /*#__PURE__*/_react.default.createElement(component(\\"Svg\\"), _extends({ \\"height\\": \\"100\\", \\"width\\": \\"100\\" }, props),
             /*#__PURE__*/_react.default.createElement(component(\\"Circle\\"), { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
         )
     );
@@ -55,10 +56,11 @@ exports.default = void 0;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var XmlAsReactComponent = function XmlAsReactComponent() {
+var XmlAsReactComponent = function XmlAsReactComponent(props) {
     return (
-        /*#__PURE__*/_react.default.createElement(\\"svg\\", { \\"viewBox\\": \\"0 0 240 80\\", \\"xmlns\\": \\"http://www.w3.org/2000/svg\\" },
+        /*#__PURE__*/_react.default.createElement(\\"svg\\", _extends({ \\"viewBox\\": \\"0 0 240 80\\", \\"xmlns\\": \\"http://www.w3.org/2000/svg\\" }, props),
             /*#__PURE__*/_react.default.createElement(\\"style\\", null,
                 \\"\\\\n    .small { font: italic 13px sans-serif; }\\\\n    .heavy { font: bold 30px sans-serif; }\\\\n\\\\n    /* Note that the color of the text is set with the    *\\\\n     * fill property, the color property is for HTML only */\\\\n    .Rrrrr { font: italic 40px serif; fill: red; }\\\\n  \\",
             ),
@@ -98,9 +100,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 
 
-var XmlAsReactComponent = function XmlAsReactComponent() {
+
+var XmlAsReactComponent = function XmlAsReactComponent(props) {
     return (
-        /*#__PURE__*/_react.default.createElement(\\"svg\\", null)
+        /*#__PURE__*/_react.default.createElement(\\"svg\\", props)
     );
 }
 
@@ -123,10 +126,11 @@ exports.default = void 0;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _react = _interopRequireDefault(require(\\"../node_modules/react/index.js\\"));
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var XmlAsReactComponent = function XmlAsReactComponent() {
+var XmlAsReactComponent = function XmlAsReactComponent(props) {
     return (
-        /*#__PURE__*/_react.default.createElement(\\"svg\\", { \\"height\\": \\"100\\", \\"width\\": \\"100\\" },
+        /*#__PURE__*/_react.default.createElement(\\"svg\\", _extends({ \\"height\\": \\"100\\", \\"width\\": \\"100\\" }, props),
             /*#__PURE__*/_react.default.createElement(\\"circle\\", { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
         )
     );

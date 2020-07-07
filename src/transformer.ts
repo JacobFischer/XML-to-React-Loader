@@ -28,7 +28,7 @@ const cleanTagName = (tagName: string) =>
     tagName[0].toUpperCase() + tagName.slice(1);
 
 const reactify = (module: boolean) =>
-    function recurse(node: SvgNode, tabs: number): string {
+    function recurse(node: SvgNode, tabs: number, isRoot: boolean): string {
         const indent = "    ".repeat(tabs);
         const tag = node[tagNameKey];
 
@@ -37,18 +37,24 @@ const reactify = (module: boolean) =>
             return `${indent}"${stringify(node[innerTextKey] || "")}"`;
         }
 
-        let attributes = "null";
+        let attributes = isRoot ? "props" : "null";
         const rawAttributes = node[attributesKey];
         if (rawAttributes) {
             attributes = `{ ${[...Object.entries(rawAttributes)]
                 .sort(([a], [b]) => a.localeCompare(b))
                 .map(([key, value]) => `"${key}": "${stringify(value)}"`)
                 .join(", ")} }`;
+
+            if (isRoot) {
+                attributes = `_extends(${attributes}, props)`;
+            }
         }
         let children: string[] | undefined;
         const rawChildren = node[childrenKey];
         if (Array.isArray(rawChildren)) {
-            children = rawChildren.map((child) => recurse(child, tabs + 1));
+            children = rawChildren.map((child) =>
+                recurse(child, tabs + 1, false),
+            );
         }
 
         const tagName = module
@@ -137,10 +143,15 @@ function component(str) {
 `
         : ""
 }
+${
+    root[attributesKey] // if there are attributes, we need to spread them with the props
+        ? "function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }"
+        : ""
+}
 
-var XmlAsReactComponent = function XmlAsReactComponent() {
+var XmlAsReactComponent = function XmlAsReactComponent(props) {
     return (
-${reactify(Boolean(options.module))(root, 2)}
+${reactify(Boolean(options.module))(root, 2, true)}
     );
 }
 
