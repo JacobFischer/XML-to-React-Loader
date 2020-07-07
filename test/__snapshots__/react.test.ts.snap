@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`React output Accepts a getComponent prop 1`] = `
+<section
+  getComponent={[Function]}
+>
+  <p>
+    Tove
+  </p>
+  <p>
+    Jani
+  </p>
+  <h1>
+    Reminder
+  </h1>
+  <p>
+    Don't forget 
+    <p>
+      me
+    </p>
+     this weekend!
+  </p>
+</section>
+`;
+
+exports[`React output Renders 1`] = `
+<svg
+  height="100"
+  width="100"
+>
+  <circle
+    cx="50"
+    cy="50"
+    fill="red"
+    r="40"
+    stroke="black"
+    stroke-width="3"
+  />
+</svg>
+`;
