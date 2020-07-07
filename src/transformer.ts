@@ -18,7 +18,7 @@ type SvgNode = {
 };
 
 type Result = {
-    svg: SvgNode;
+    [key: string]: SvgNode;
 };
 
 const stringify = (str: string) =>
@@ -77,7 +77,7 @@ export async function transform(
     options: Options,
 ): Promise<string> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const result = (await parseStringPromise(xml, {
+    const result: Result = await parseStringPromise(xml, {
         attrkey: attributesKey,
         explicitArray: true,
         explicitChildren: true,
@@ -88,31 +88,24 @@ export async function transform(
         preserveChildrenOrder: true,
         // explicitRoot: true,
         // */
-    })) as Result; // should never be undefined, type is wrong. Instead promise rejects on errors
+    });
+
+    const rootKeys = [...Object.keys(result)];
+    // XML should only ever have 1 root node.
+    // If a way to trigger this can be found add to tests
+    /* istanbul ignore next */
+    if (rootKeys.length !== 1) {
+        throw new Error(
+            `Invalid number of root keys in xml: ${rootKeys.join(", ")}`,
+        );
+    }
+
+    const root = result[rootKeys[0]];
 
     const reactPath = stringifyRequest(loader, require.resolve("react"));
     const modulePath = options.module
         ? stringifyRequest(loader, options.module)
         : "";
-
-    // we need to try to extact the height and width
-    let width = "";
-    let height = "";
-    const svgAttributes = result.svg[attributesKey];
-    if (svgAttributes) {
-        width = svgAttributes.width;
-        height = svgAttributes.height;
-
-        const viewBox = svgAttributes.viewBox;
-        if (viewBox) {
-            const split = viewBox.split(" ");
-            width = width || split[2];
-            height = height || split[3];
-        } // the || "" is to appease TS
-
-        /* istanbul ignore next */ width = width || ""; // the || "" is to appease TS
-        /* istanbul ignore next */ height = height || "";
-    }
 
     return `"use strict";
 
@@ -145,19 +138,16 @@ function component(str) {
         : ""
 }
 
-var SvgAsReactSvg = function SvgAsReactSvg() {
+var XmlAsReactComponent = function XmlAsReactComponent() {
     return (
-${reactify(Boolean(options.module))(result.svg, 2)}
+${reactify(Boolean(options.module))(root, 2)}
     );
 }
 
-var width = "${width}";
-exports.width = width;
+var rootAttributes = ${JSON.stringify(root[attributesKey] || {})};
+exports.rootAttributes = rootAttributes;
 
-var height = "${height}";
-exports.height = height;
-
-var _default = SvgAsReactSvg;
+var _default = XmlAsReactComponent;
 exports.default = _default;
 `;
 }

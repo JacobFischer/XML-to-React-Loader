@@ -9,7 +9,7 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
+var _react = _interopRequireDefault(require(\\"../node_modules/react/index.js\\"));
 
 var mod = _interopRequireDefault(require(\\"@react-pdf/renderer\\"));
 
@@ -28,7 +28,7 @@ function component(str) {
 }
 
 
-var SvgAsReactSvg = function SvgAsReactSvg() {
+var XmlAsReactComponent = function XmlAsReactComponent() {
     return (
         /*#__PURE__*/_react.default.createElement(component(\\"Svg\\"), { \\"height\\": \\"100\\", \\"width\\": \\"100\\" },
             /*#__PURE__*/_react.default.createElement(component(\\"Circle\\"), { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
@@ -36,13 +36,10 @@ var SvgAsReactSvg = function SvgAsReactSvg() {
     );
 }
 
-var width = \\"100\\";
-exports.width = width;
+var rootAttributes = {\\"height\\":\\"100\\",\\"width\\":\\"100\\"};
+exports.rootAttributes = rootAttributes;
 
-var height = \\"100\\";
-exports.height = height;
-
-var _default = SvgAsReactSvg;
+var _default = XmlAsReactComponent;
 exports.default = _default;
 "
 `;
@@ -59,7 +56,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 
 
-var SvgAsReactSvg = function SvgAsReactSvg() {
+var XmlAsReactComponent = function XmlAsReactComponent() {
     return (
         /*#__PURE__*/_react.default.createElement(\\"svg\\", { \\"viewBox\\": \\"0 0 240 80\\", \\"xmlns\\": \\"http://www.w3.org/2000/svg\\" },
             /*#__PURE__*/_react.default.createElement(\\"style\\", null,
@@ -81,13 +78,10 @@ var SvgAsReactSvg = function SvgAsReactSvg() {
     );
 }
 
-var width = \\"240\\";
-exports.width = width;
+var rootAttributes = {\\"viewBox\\":\\"0 0 240 80\\",\\"xmlns\\":\\"http://www.w3.org/2000/svg\\"};
+exports.rootAttributes = rootAttributes;
 
-var height = \\"80\\";
-exports.height = height;
-
-var _default = SvgAsReactSvg;
+var _default = XmlAsReactComponent;
 exports.default = _default;
 "
 `;
@@ -104,19 +98,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 
 
-var SvgAsReactSvg = function SvgAsReactSvg() {
+var XmlAsReactComponent = function XmlAsReactComponent() {
     return (
         /*#__PURE__*/_react.default.createElement(\\"svg\\", null)
     );
 }
 
-var width = \\"\\";
-exports.width = width;
+var rootAttributes = {};
+exports.rootAttributes = rootAttributes;
 
-var height = \\"\\";
-exports.height = height;
-
-var _default = SvgAsReactSvg;
+var _default = XmlAsReactComponent;
 exports.default = _default;
 "
 `;
@@ -130,10 +121,10 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
+var _react = _interopRequireDefault(require(\\"../node_modules/react/index.js\\"));
 
 
-var SvgAsReactSvg = function SvgAsReactSvg() {
+var XmlAsReactComponent = function XmlAsReactComponent() {
     return (
         /*#__PURE__*/_react.default.createElement(\\"svg\\", { \\"height\\": \\"100\\", \\"width\\": \\"100\\" },
             /*#__PURE__*/_react.default.createElement(\\"circle\\", { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
@@ -141,13 +132,10 @@ var SvgAsReactSvg = function SvgAsReactSvg() {
     );
 }
 
-var width = \\"100\\";
-exports.width = width;
+var rootAttributes = {\\"height\\":\\"100\\",\\"width\\":\\"100\\"};
+exports.rootAttributes = rootAttributes;
 
-var height = \\"100\\";
-exports.height = height;
-
-var _default = SvgAsReactSvg;
+var _default = XmlAsReactComponent;
 exports.default = _default;
 "
 `;

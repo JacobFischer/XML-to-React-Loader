@@ -42,7 +42,7 @@ export function compile(
         module: {
             rules: [
                 {
-                    test: /\.svg$/,
+                    test: /\.(svg|xml)$/,
                     use: {
                         loader: path.resolve(__dirname, "../src/index.ts"),
                         options,
