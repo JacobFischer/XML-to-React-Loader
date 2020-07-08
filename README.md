@@ -9,7 +9,9 @@ In addition, no transpiling should be required. This loader automatically
 generates valid JavaScript syntax that does not need to go through a jsx
 tool.
 
-## Usage
+## Setup
+
+Add this loader as a rule for XML or XML derived files in your setup.
 
 ```js
 {
@@ -26,7 +28,13 @@ tool.
 }
 ```
 
-### Examples
+Alternatively you can manually invoke this loader on specific files
+
+```js
+import Component from "!xml-to-react-loader!./path/to/file.xml";
+```
+
+## Examples
 
 If this is your xml file:
 
@@ -43,7 +51,7 @@ It will produce a JavaScript file roughly equivalent to the following:
 import React from 'react';
 
 export const Component = (
-  getComponent: (tagname: string) => string | React.Component,
+  getComponent: (tagname: string) => React.ReactNode,
   ...props: Record<string, unknown>
 ): React.FunctionComponent => {
   const Note = getComponent ? getComponent('node') : 'note';
@@ -68,10 +76,11 @@ export const rootAttributes = {
 
 ```
 
-_Note_: there is no need to transform the jsx syntax, this loader does that
-automatically. It is left in this example to enhance readability
+_Note_: There is no need to transform the JSX syntax, this loader does that
+automatically. The JSX syntax in this example is preserved to enhance
+readability.
 
-Usage:
+### Usage
 
 ```jsx
 import NoteComponent from 'note.xml';
@@ -90,7 +99,7 @@ const tagMappings = {
 
 const Component = (props: {}) => (
   <NoteComponent
-    getComponent={(tag: string) => tagMappings[tag] || 'p'}
+    getComponent={(tag) => tagMappings[tag] || 'p'}
     {...props}
   />
 );
@@ -99,6 +108,10 @@ const Component = (props: {}) => (
 Because it is common that React primitive elements will not match your xml
 file 1:1, every component can take a `getComponent` prop to get your
 appropriate component for each tag.
+
+It is simply a function that will be called with the tag `string` to get a
+component for, and should return something React can create, which means
+probably a `string` or `Component`.
 
 ## Options
 
@@ -124,9 +137,17 @@ will just need to hook up the definitions according to how you import them.
 
 ```ts
 // your-typings-file.d.ts
-import { XmlToReactLoaderExport } from "xml-to-react-loader";
 
-declare module "*.xml" {
+import { XmlToReactLoaderExport } from 'xml-to-react-loader';
+
+declare module '*.xml' {
+  const _: XmlToReactLoaderExport;
+  export = _;
+}
+
+// or
+
+declare module '!xml-to-react-loader!*' {
   const _: XmlToReactLoaderExport;
   export = _;
 }
