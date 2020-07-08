@@ -1,4 +1,5 @@
 import { defaultOptions, validate } from "../src/options";
+import { defaultOptions as indexDefaultOptions } from "../src/index";
 
 describe("Options", () => {
     test("Accepts valid options", () => {
@@ -46,5 +47,6 @@ describe("Options", () => {
         expect(defaultOptions).toBeTruthy();
         expect(typeof defaultOptions).toBe("object");
         expect(validate(defaultOptions)).toStrictEqual(defaultOptions);
+        expect(indexDefaultOptions).toStrictEqual(defaultOptions);
     });
 });
