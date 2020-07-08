@@ -9,14 +9,19 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 function _getComponentDefault(str) {
     return str;
 }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var XmlAsReactComponent = function XmlAsReactComponent(props) {
-    var getComponent = props.getComponent || _getComponentDefault;
+var XmlAsReactComponent = function XmlAsReactComponent(_ref) {
+    var getComponent = _ref.getComponent || _getComponentDefault,
+        props = _objectWithoutProperties(_ref, [\\"getComponent\\"]);
     return (
         /*#__PURE__*/_react.default.createElement(getComponent(\\"svg\\"), _extends({ \\"height\\": \\"100\\", \\"width\\": \\"100\\" }, props),
             /*#__PURE__*/_react.default.createElement(getComponent(\\"circle\\"), { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
@@ -29,6 +34,7 @@ exports.rootAttributes = rootAttributes;
 
 var _default = XmlAsReactComponent;
 exports.default = _default;
+exports.Component = XmlAsReactComponent;
 "
 `;
 
@@ -41,14 +47,19 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 function _getComponentDefault(str) {
     return str;
 }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var XmlAsReactComponent = function XmlAsReactComponent(props) {
-    var getComponent = props.getComponent || _getComponentDefault;
+var XmlAsReactComponent = function XmlAsReactComponent(_ref) {
+    var getComponent = _ref.getComponent || _getComponentDefault,
+        props = _objectWithoutProperties(_ref, [\\"getComponent\\"]);
     return (
         /*#__PURE__*/_react.default.createElement(getComponent(\\"svg\\"), _extends({ \\"height\\": \\"1018\\", \\"id\\": \\"svg2\\", \\"inkscape:export-filename\\": \\"C:\\\\\\\\Documents and Settings\\\\\\\\MichaelG\\\\\\\\My Documents\\\\\\\\My Pictures\\\\\\\\gallardo.png\\", \\"inkscape:export-xdpi\\": \\"90\\", \\"inkscape:export-ydpi\\": \\"90\\", \\"inkscape:output_extension\\": \\"org.inkscape.output.svgz.inkscape\\", \\"inkscape:version\\": \\"0.44+devel\\", \\"sodipodi:docbase\\": \\"/home/d/ink/inkscape/share/examples\\", \\"sodipodi:docname\\": \\"gallardo.svgz\\", \\"sodipodi:modified\\": \\"true\\", \\"sodipodi:version\\": \\"0.32\\", \\"version\\": \\"1.0\\", \\"viewBox\\": \\"0 0 1901 1018\\", \\"width\\": \\"1901\\", \\"xmlns\\": \\"http://www.w3.org/2000/svg\\", \\"xmlns:cc\\": \\"http://web.resource.org/cc/\\", \\"xmlns:dc\\": \\"http://purl.org/dc/elements/1.1/\\", \\"xmlns:inkscape\\": \\"http://www.inkscape.org/namespaces/inkscape\\", \\"xmlns:rdf\\": \\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\", \\"xmlns:sodipodi\\": \\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\\", \\"xmlns:svg\\": \\"http://www.w3.org/2000/svg\\", \\"xmlns:xlink\\": \\"http://www.w3.org/1999/xlink\\" }, props),
             /*#__PURE__*/_react.default.createElement(getComponent(\\"defs\\"), { \\"id\\": \\"defs4\\" },
@@ -1144,10 +1155,11 @@ exports.rootAttributes = rootAttributes;
 
 var _default = XmlAsReactComponent;
 exports.default = _default;
+exports.Component = XmlAsReactComponent;
 "
 `;
 
-exports[`Webpack loader Transforms minimal SVGs 1`] = `
+exports[`Webpack loader Transforms minimal files 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -1156,14 +1168,19 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 function _getComponentDefault(str) {
     return str;
 }
 
 
-var XmlAsReactComponent = function XmlAsReactComponent(props) {
-    var getComponent = props.getComponent || _getComponentDefault;
+
+var XmlAsReactComponent = function XmlAsReactComponent(_ref) {
+    var getComponent = _ref.getComponent || _getComponentDefault,
+        props = _objectWithoutProperties(_ref, [\\"getComponent\\"]);
     return (
         /*#__PURE__*/_react.default.createElement(getComponent(\\"svg\\"), props)
     );
@@ -1174,6 +1191,7 @@ exports.rootAttributes = rootAttributes;
 
 var _default = XmlAsReactComponent;
 exports.default = _default;
+exports.Component = XmlAsReactComponent;
 "
 `;
 
@@ -1186,14 +1204,19 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.default = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 var _react = _interopRequireDefault(require(\\"../../node_modules/react/index.js\\"));
 function _getComponentDefault(str) {
     return str;
 }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var XmlAsReactComponent = function XmlAsReactComponent(props) {
-    var getComponent = props.getComponent || _getComponentDefault;
+var XmlAsReactComponent = function XmlAsReactComponent(_ref) {
+    var getComponent = _ref.getComponent || _getComponentDefault,
+        props = _objectWithoutProperties(_ref, [\\"getComponent\\"]);
     return (
         /*#__PURE__*/_react.default.createElement(getComponent(\\"svg\\"), _extends({ \\"height\\": \\"100\\", \\"width\\": \\"100\\" }, props),
             /*#__PURE__*/_react.default.createElement(getComponent(\\"circle\\"), { \\"cx\\": \\"50\\", \\"cy\\": \\"50\\", \\"fill\\": \\"red\\", \\"r\\": \\"40\\", \\"stroke\\": \\"black\\", \\"stroke-width\\": \\"3\\" }),
@@ -1206,5 +1229,6 @@ exports.rootAttributes = rootAttributes;
 
 var _default = XmlAsReactComponent;
 exports.default = _default;
+exports.Component = XmlAsReactComponent;
 "
 `;

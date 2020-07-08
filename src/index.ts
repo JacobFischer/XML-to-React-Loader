@@ -20,3 +20,5 @@ export default async function XmlToReactLoader(
     // console.log("TRANSFORMED", transformed);
     return transformed;
 }
+
+export * from "./typings";

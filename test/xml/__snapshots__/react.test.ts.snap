@@ -2,14 +2,9 @@
 
 exports[`React output Accepts a getComponent prop 1`] = `
 <section
-  getComponent={[Function]}
+  author="John Doe"
+  date="2020-07-07T23:04:29+00:00"
 >
-  <p>
-    Tove
-  </p>
-  <p>
-    Jani
-  </p>
   <h1>
     Reminder
   </h1>

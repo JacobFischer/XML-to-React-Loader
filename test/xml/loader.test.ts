@@ -1,7 +1,9 @@
-import safeEval from "eval";
-import { compile, toJsFile } from "./webpack-compile";
-
-const LONG_TIMEOUT = 12500; // for long tests that use puppeteer heavily
+import {
+    compile,
+    loadParsed,
+    LONG_TIMEOUT,
+    toJsFile,
+} from "./webpack-compile";
 
 describe("Webpack loader", () => {
     test(
@@ -21,25 +23,27 @@ describe("Webpack loader", () => {
     );
 
     test(
-        "The output is valid JavaScript",
+        "The output is the valid JavaScript shape",
         async () => {
-            const source = await toJsFile("note.xml");
-            const result = safeEval(source, undefined, undefined, true);
+            const result = await loadParsed("note.xml");
+            expect(Object.keys(result).length).toEqual(3);
+
             expect(typeof result).toEqual("object");
             expect(result).not.toStrictEqual(null);
-            if (typeof result === "object" && result !== null) {
-                // console.log("result", result);
-                const obj = result as Record<string, unknown>;
-                const { rootAttributes } = obj;
-                const defaultExport = obj.default;
-                expect(typeof defaultExport).toEqual("function");
-                if (typeof defaultExport === "function") {
-                    expect(defaultExport.name).toEqual("XmlAsReactComponent");
-                }
 
-                expect(typeof rootAttributes).toBe("object");
-                expect(rootAttributes).not.toStrictEqual(null);
-            }
+            expect(typeof result.default).toEqual("function");
+            expect(result.default.name).toEqual("XmlAsReactComponent");
+
+            expect(result.Component).toStrictEqual(result.default);
+
+            expect(typeof result.rootAttributes).toBe("object");
+            expect(result.rootAttributes).not.toStrictEqual(null);
+
+            expect(result.rootAttributes.date).toEqual(
+                "2020-07-07T23:04:29+00:00",
+            );
+            expect(result.rootAttributes.author).toEqual("John Doe");
+            expect(Object.keys(result.rootAttributes).length).toEqual(2);
         },
         LONG_TIMEOUT,
     );
@@ -56,7 +60,7 @@ describe("Webpack loader", () => {
     );
 
     test(
-        "Rejects on invalid SVG files",
+        "Rejects on invalid XML syntax",
         async () => {
             await expect(toJsFile("invalid.xml")).rejects.toBeTruthy();
         },
@@ -64,7 +68,7 @@ describe("Webpack loader", () => {
     );
 
     test(
-        "Transforms minimal SVGs",
+        "Transforms minimal files",
         async () => {
             const source = await toJsFile("empty.xml");
             expect(source).toMatchSnapshot();

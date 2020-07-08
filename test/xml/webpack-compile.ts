@@ -1,8 +1,13 @@
+import safeEval from "eval";
 import path from "path";
 import webpack from "webpack";
 import externals from "webpack-node-externals";
 import { createFsFromVolume, Volume, IFs } from "memfs";
 import { Options } from "../../src/options";
+import { XmlToReactLoaderExport } from "../../src";
+
+/* For long tests that use puppeteer heavily. */
+export const LONG_TIMEOUT = 12500;
 
 /**
  * Creates the memfs file system and injects path.join into it for webpack.
@@ -92,4 +97,24 @@ export async function toJsFile(
     return js || "";
 }
 
-export default compile;
+/**
+ * Shortcut to directly get the parsed result of a loader call.
+ *
+ * @param fixture - The entry file path,.
+ * @param options - The options, if any.
+ * @returns A promise to the compiled and then parsed JS.
+ */
+export async function loadParsed(
+    fixture: string,
+    options?: Options,
+): Promise<XmlToReactLoaderExport> {
+    const source = await toJsFile(fixture, options);
+    const result = safeEval(
+        source,
+        undefined,
+        undefined,
+        true,
+    ) as XmlToReactLoaderExport;
+
+    return result;
+}
