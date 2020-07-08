@@ -95,7 +95,7 @@ const tagMappings = {
     </html>
   ),
   bold: 'b',
-}
+};
 
 const Component = (props: {}) => (
   <NoteComponent
