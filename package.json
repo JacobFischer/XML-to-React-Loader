@@ -1,6 +1,6 @@
 {
   "name": "xml-to-react-loader",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Webpack loader designed to parse an svg file into a an abstract React component.",
   "main": "dist/index.js",
   "repository": "git@github.com:JacobFischer/SVG-to-React-PDF-Loader.git",
@@ -60,7 +60,9 @@
     "prettier": "npm run prettier:base -- --write",
     "prettier:check": "npm run prettier:base -- --check",
     "test": "jest --env=node --config ./test/jest.config.js --colors --coverage test",
-    "test:update": "jest --env=node --config ./test/jest.config.js --colors --updateSnapshot",
     "ncu": "ncu -u"
-  }
+  },
+  "files": [
+    "dist/"
+  ]
 }
